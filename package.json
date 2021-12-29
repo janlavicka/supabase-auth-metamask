@@ -1,0 +1,19 @@
+{
+  "name": "supabase-auth-metamask",
+  "version": "1.0.0",
+  "description": "POC for integration of Metamask as a custom authentication provider for Supabase",
+  "author": "Jan Lavička <iam@janlavicka.com>",
+  "license": "MIT",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "frontend"
+    ]
+  },
+  "scripts": {
+    "dev": "yarn --cwd frontend dev",
+    "lint": "yarn --cwd frontend lint",
+    "build": "yarn --cwd frontend build",
+    "start": "yarn --cwd frontend start"
+  }
+}
