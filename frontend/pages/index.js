@@ -1,4 +1,3 @@
-import Head from "next/head";
 import { useEffect, useState } from "react";
 import Account from "@/components/Account";
 import Auth from "@/components/Auth";
@@ -16,18 +15,18 @@ export default function Page() {
   }, []);
 
   return (
-    <div>
-      <Head>
-        <title>Supabase Auth + MetaMask</title>
-        <meta name="description" content="Supabase Auth + MetaMask" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <div className="flex items-center justify-center min-h-screen">
+      <main className="w-full max-w-md">
+        <div className="text-center bg-white rounded-lg shadow-lg">
+          <div className="px-12 py-6">
+            <h1 className="mb-4 text-2xl font-bold">
+              Supabase Auth + MetaMask
+            </h1>
 
-      <div>
-        <h1>Supabase Auth + MetaMask</h1>
-
-        {session ? <Account /> : <Auth />}
-      </div>
+            {session ? <Account /> : <Auth />}
+          </div>
+        </div>
+      </main>
     </div>
   );
 }

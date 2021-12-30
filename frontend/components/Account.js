@@ -9,11 +9,20 @@ export default function Account() {
 
   return (
     <>
-      <p>Logged in address:</p>
+      <p className="mb-2 text-base font-semibold text-gray-900">
+        Logged in address:
+      </p>
 
-      <p>{user.user_metadata.address}</p>
+      <p className="mb-4 text-base text-gray-700 truncate">
+        {user.user_metadata.address}
+      </p>
 
-      <button onClick={handleLogout}>Logout</button>
+      <button
+        onClick={handleLogout}
+        className="px-4 py-2 font-bold bg-gray-100 rounded-lg hover:bg-gray-200"
+      >
+        Logout
+      </button>
     </>
   );
 }
