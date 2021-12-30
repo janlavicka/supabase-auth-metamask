@@ -5,10 +5,40 @@ import { useEffect, useState } from "react";
 export function useAuth() {
   const [processing, setProcessing] = useState(false);
   const [message, setMessage] = useState(null);
-  const { active, activate } = useWeb3React();
+  const { active, activate, library } = useWeb3React();
 
   useEffect(async () => {
     if (active && processing) {
+      setProcessing(false);
+      setMessage("Please sign message via MetaMask.");
+
+      const signer = library.getSigner();
+      const address = await signer.getAddress();
+      let data;
+      let signature;
+
+      try {
+        // nonce
+        const response = await fetch("/api/nonce", {
+          method: "POST",
+          body: JSON.stringify({ address }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        data = await response.json();
+      } catch (error) {
+        setMessage(error.message);
+        return;
+      }
+
+      try {
+        signature = await signer.signMessage(data.nonce);
+      } catch (error) {
+        setMessage("Login was unsuccessful.");
+        return;
+      }
     }
   }, [active, processing]);
 
