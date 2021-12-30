@@ -1,6 +1,7 @@
 import { useWeb3React } from "@web3-react/core";
 import { InjectedConnector } from "@web3-react/injected-connector";
 import { useEffect, useState } from "react";
+import supabase from "./supabase";
 
 export function useAuth() {
   const [processing, setProcessing] = useState(false);
@@ -37,6 +38,25 @@ export function useAuth() {
         signature = await signer.signMessage(data.nonce);
       } catch (error) {
         setMessage("Login was unsuccessful.");
+        return;
+      }
+
+      try {
+        // signature varification
+        const response = await fetch("/api/varify", {
+          method: "POST",
+          body: JSON.stringify({ address, signature }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        data = await response.json();
+
+        setMessage("Logging in...");
+
+        await supabase.auth.setSession(data.token);
+      } catch (error) {
+        setMessage(error.message);
         return;
       }
     }
