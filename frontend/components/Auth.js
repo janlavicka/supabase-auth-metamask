@@ -1,9 +1,13 @@
+import { useAuth } from "@/lib/hooks";
+
 export default function Auth() {
+  const { message, handleLogin } = useAuth();
+
   return (
     <>
-      <p>Connect MetaMask wallet to access your account.</p>
+      <p>{message || "Connect MetaMask wallet to access your account."}</p>
 
-      <button>MetaMask</button>
+      <button onClick={handleLogin}>MetaMask</button>
     </>
   );
 }
